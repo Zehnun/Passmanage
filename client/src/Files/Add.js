@@ -19,9 +19,11 @@ class Add extends Component{
     submitHandler = e => {
         e.preventDefault()
         console.log(this.state)
-        axios.post('http://localhost:3001/', this.state)
+        axios.post('http://localhost:3001/add', this.state)
             .then(response =>{
                 console.log(response)
+                alert("information submitted")
+                window.location.reload(false);
             })
             .catch(error => {
                 console.log(error)

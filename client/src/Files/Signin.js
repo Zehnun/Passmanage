@@ -11,6 +11,7 @@ class Signin extends Component{
             password: ''
         }
     }
+    
     changeHandler = (e) =>{
         this.setState({ [e.target.name]: e.target.value})
     }
@@ -18,9 +19,14 @@ class Signin extends Component{
     submitHandler = e => {
         e.preventDefault()
         console.log(this.state)
-        axios.post('http://localhost:3001/', this.state)
+        axios.post('http://localhost:3001/signin', this.state)
             .then(response =>{
-                console.log(response)
+                if(response.data !== "fail"){
+                    console.log(response.data + " you can join")
+                    this.props.history.push("/main");
+                }else{
+                    alert("Try again");
+                }
             })
             .catch(error => {
                 console.log(error)

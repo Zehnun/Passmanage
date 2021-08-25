@@ -1,3 +1,4 @@
+require('dotenv').config()
 var express = require('express');
 var router = express.Router();
 const bodyParser = require('body-parser');
@@ -15,14 +16,34 @@ const pool = require("../db");
 
 // Routes //
 // get all todos
-
+const jwt = require('jsonwebtoken')
 
 
 
 router.use(express.json())
 
 // create a todo
+/*
+router.post("/signin", (req, res) =>{
+  const { sentemail, sentpassword } = req.body;
+  const useremail = { email: sentemail }
+  const userpassword = { password: sentpassword }
+  const accessToken = jwt.sign(useremail, process.env.ACCESS_TOKEN_SECRET)
+  res.json({ accessToken: accessToken })
+})
 
+function authenticateToken(req, res, next) {
+  const authHeader = req.header['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+  if (token == null) return res.sendStatus(401)
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, useremail) => {
+    if(err) return res.sendStatus(403)
+    req.email = useremail
+    next()
+  })
+}
+*/
 router.post("/signin", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -31,9 +52,12 @@ router.post("/signin", async (req, res) => {
       "SELECT * FROM manage.muser WHERE email = $1 AND pass = $2", 
       [email, password]
     );
-
-    res.json(getHome.rows[0]);
+    // res.send(getHome.rows[0].email + " " + email + " " + getHome.rows[0].pass + " " + password); 
+    //if(getHome.rows[0].email != email && getHome.rows[0].pass != password){
+    res.send("sucess, sign in " + getHome.rows[0].email + " " + getHome.rows[0].pass );
+    
   } catch (err) {
+    res.send("fail")
     console.error("Error: " + err.message);
   }
 });
@@ -69,11 +93,12 @@ router.post("/Add", async (req, res) => {
   }
 });
 
-router.get("/main", async (req, res) => {
+router.get("/main", async(req, res) => {
   try {
     const getPass = await pool.query(
       "SELECT * FROM manage.box"
     );
+    res.json(getPass.filter(getPass => getPass.manid === req.useremail))
     res.json(getPass.rows);
   } catch (err) {
     console.error(err.message);
