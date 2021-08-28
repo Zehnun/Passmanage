@@ -1,27 +1,31 @@
 require('dotenv').config()
 var express = require('express');
+const app = express();
 var router = express.Router();
 const bodyParser = require('body-parser');
 //const { request } = require('../app');
-const app = express();
-var cors = require("cors");
-app.use(cors({
-  origin: "*",
+
+var cors = require('cors');
+router.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
   })
 );
 var count = 0;
 var selfnum = 0;
 const pool = require("../db");
 
-
+var cookieParser = require('cookie-parser');
 // Routes //
 // get all todos
 const jwt = require('jsonwebtoken')
 
+router.use(express.urlencoded({ extended: true}));
 
+//router.use(express.urlencoded({extended: true}))
 
-router.use(express.json())
-
+//router.use(express.json())
+router.use(cookieParser())
 // create a todo
 /*
 router.post("/signin", (req, res) =>{
@@ -47,15 +51,19 @@ function authenticateToken(req, res, next) {
 router.post("/signin", async (req, res) => {
   try {
     const { email, password } = req.body;
-    count = count + 1;
+    //count = count + 1;
     const getHome = await pool.query(
       "SELECT * FROM manage.muser WHERE email = $1 AND pass = $2", 
       [email, password]
     );
     // res.send(getHome.rows[0].email + " " + email + " " + getHome.rows[0].pass + " " + password); 
     //if(getHome.rows[0].email != email && getHome.rows[0].pass != password){
-    res.send("sucess, sign in " + getHome.rows[0].email + " " + getHome.rows[0].pass );
-    
+    //res.send("sucess, sign in " + getHome.rows[0].email + " " + getHome.rows[0].pass );
+    // sent cookies
+    res.cookie('email', email);
+    res.cookie('pass', password);
+
+    res.send(getHome.rows[0])
   } catch (err) {
     res.send("fail")
     console.error("Error: " + err.message);
@@ -66,10 +74,10 @@ router.post("/signup", async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    count = count + 1;
+    //count = count + 1;
     const newUser = await pool.query(
-      "INSERT INTO manage.muser (email, pass, manid) VALUES($1, $2, $3) RETURNING *",
-      [email, password, count]
+      "INSERT INTO manage.muser (email, pass) VALUES($1, $2) RETURNING *",
+      [email, password]
     );
 
     res.json(newUser.rows[0]);
@@ -77,15 +85,34 @@ router.post("/signup", async (req, res) => {
     console.error(err.message);
   }
 });
-
+/*
+function validateCookie(req, res, next){
+  const { cookies } = req;
+  console.log(cookies);
+  next();
+}
+*/
 router.post("/Add", async (req, res) => {
   try {
     const { org, email, password } = req.body;
+    // username andd password
     selfnum = selfnum + 1;
+    
+    const { cookies } = req;
+    
+    const getId = await pool.query(
+      "SELECT * FROM manage.muser WHERE email = $1 AND pass = $2", 
+      [cookies.email, cookies.pass]
+    )
+    const UserId = getId.rows[0].manid;
+    
     const newPass = await pool.query(
       "INSERT INTO manage.box (manid, selfid, names, email, sepass) VALUES($1, $2, $3, $4, $5) RETURNING *",
-      [count, selfnum, org, email, password]
+      [UserId, selfnum, org, email, password]
     );
+    //console.console("try: " + document.cookie);
+  
+    //console.log(UserId);
 
     res.json(newPass.rows[0]);
   } catch (err) {
@@ -95,11 +122,23 @@ router.post("/Add", async (req, res) => {
 
 router.get("/main", async(req, res) => {
   try {
+    const { cookies } = req;
+
+    const getId = await pool.query(
+      "SELECT * FROM manage.muser WHERE email = $1 AND pass = $2", 
+      [cookies.email, cookies.pass]
+    )
+    const UserId = getId.rows[0].manid;
+
     const getPass = await pool.query(
-      "SELECT * FROM manage.box"
+      "SELECT * FROM manage.box WHERE manid = $1",
+      [UserId]
     );
-    res.json(getPass.filter(getPass => getPass.manid === req.useremail))
-    res.json(getPass.rows);
+    
+    /*res.json(getPass.filter(getPass => getPass.manid === req.useremail))
+    res.json(getPass.rows);*/
+    
+    res.send(getPass.rows)
   } catch (err) {
     console.error(err.message);
   }

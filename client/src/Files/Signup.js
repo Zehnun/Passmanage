@@ -21,6 +21,9 @@ class Signup extends Component{
         axios.post('http://localhost:3001/signup', this.state)
         .then(response =>{
             console.log(response)
+            alert("signed up");
+    
+            this.props.history.push("/");
         })
         .catch(error => {
             console.log(error)

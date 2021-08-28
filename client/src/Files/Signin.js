@@ -22,10 +22,13 @@ class Signin extends Component{
         axios.post('http://localhost:3001/signin', this.state)
             .then(response =>{
                 if(response.data !== "fail"){
-                    console.log(response.data + " you can join")
+                    console.log(response.data);
+                    document.cookie = "email=" + response.data.email + "; SameSite=None;";
+                    document.cookie = "pass=" + response.data.pass + "; SameSite=None;";
                     this.props.history.push("/main");
                 }else{
                     alert("Try again");
+                    window.location.reload(false);
                 }
             })
             .catch(error => {

@@ -16,6 +16,7 @@ class Main extends Component{
         axios.get('http://localhost:3001/main')
         .then((response) => {
             this.setState({containers: response.data})
+            console.log(response.data)
         })
         .catch(error => {
             console.log(error)
@@ -29,17 +30,7 @@ class Main extends Component{
         const data = await response.json();
         this.setState({ containers: data.results, loading: false});
     }
-    for(int i = 0; i < v.size(); i++ ){
-        cin >> x >> y >> z;
-        vector<int> v(n);
-        for(int j = 0; < w.size(); u++){
-            cout << x << y << z << endl;
-            for(int i = 0; i < v.size(); i++){
-                cin >> y >> z >> endl;
-                cout << x << y << z << endl << fastest.
-            }
-        }
-    }
+   
     <div> {this.state.containers}   </div>
             
 */

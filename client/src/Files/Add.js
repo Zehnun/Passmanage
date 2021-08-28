@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import axios from 'axios';
+axios.defaults.withCredentials = true;
 
 class Add extends Component{
 
