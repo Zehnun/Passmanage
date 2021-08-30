@@ -8,8 +8,25 @@ class Main extends Component{
         super(props)
 
         this.state = {
-            containers: []
+            containers: [],
+            names: '',
+            email: ''
         }
+    }
+    changeHandler = (e) =>{
+        this.setState({ [e.target.names]: e.target.value})
+    }
+    
+    submitHandler = e => {
+        e.preventDefault()
+        console.log(this.state)
+        axios.post('http://localhost:3001/delete', this.state)
+            .then(response =>{
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     componentDidMount(){
@@ -42,7 +59,7 @@ class Main extends Component{
             <div>
                 {
                     containers.length ?
-                    containers.map(containers => <div key={containers.selfid}>{containers.names} {containers.email} {containers.sepass}</div>) :
+                    containers.map(containers => <div key={containers.selfid}>{containers.names} {containers.email} {containers.sepass} <button onChange={this.changeHandler} onSubmit={this.submitHandler}>Delete</button></div>) :
                     null
                 }
             </div>

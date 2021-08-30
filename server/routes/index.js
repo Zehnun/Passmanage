@@ -120,6 +120,20 @@ router.post("/Add", async (req, res) => {
   }
 });
 
+router.post("/delete", async (req, res) => {
+  try {
+    const { names, email } = req.body;
+
+    const delVal = await pool.query(
+      "DELETE FROM manage.box WHERE names = $1 AND email = $2",
+      [names, email]
+    )
+    res.json("deleted");
+  } catch (err){
+    console.error(err.message);
+  }
+});
+
 router.get("/main", async(req, res) => {
   try {
     const { cookies } = req;
