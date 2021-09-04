@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import axios from 'axios';
+import './Style/in.css';
 
 class Signin extends Component{
 
@@ -39,14 +40,14 @@ class Signin extends Component{
     render() {
         const {email, password} = this.state
         return(
-            <div className="App">
+            <div className="in">
                 <p>Sign in</p>
-                <form onSubmit={this.submitHandler}>
+                <form className="in-form" onSubmit={this.submitHandler}>
                     <label>Email:</label>
-                    <input type="email" name = "email" value = {email} onChange={this.changeHandler} placeholder="Enter email..."></input>
+                    <input className="in-em" type="email" name = "email" value = {email} onChange={this.changeHandler} placeholder="Enter email..."></input>
                     <label>Password:</label>
-                    <input type="password" name= "password" value = {password} onChange = {this.changeHandler} placeholder="Enter password.."></input>
-                    <button type="submit">Sign in</button>
+                    <input className="in-pass" type="password" name= "password" value = {password} onChange = {this.changeHandler} placeholder="Enter password.."></input>
+                    <button className="in-btn" type="submit">Sign in</button>
                 </form>
             </div>
         );

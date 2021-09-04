@@ -1,0 +1,58 @@
+.add{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 250px;
+    color: white;
+    font-size: 25px;
+    
+}
+
+
+.add-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+
+.add-em{
+    margin-bottom: 15px;
+    margin-top: 5px;
+    width: 250px;
+    height: 30px;
+    border-radius: 8px;
+    font-size: 15px;
+    color: white;
+}
+::placeholder{
+    color: white;
+}
+.add-name{
+    margin-top: 15px;
+    margin-bottom: 25px;
+    width: 250px;
+    height: 30px;
+    border-radius: 8px;
+    font-size: 15px;
+    color: white;
+}
+.add-pass{
+    margin-top: 15px;
+    margin-bottom: 5px;
+    width: 250px;
+    height: 30px;
+    border-radius: 8px;
+    font-size: 15px;
+    color: white;
+}
+.add-btn{
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: white;
+    background-color: green;
+    width: 259px;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 20px;
+}

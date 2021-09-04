@@ -128,7 +128,7 @@ router.post("/delete", async (req, res) => {
       "DELETE FROM manage.box WHERE names = $1 AND email = $2",
       [names, email]
     )
-    res.json("deleted");
+    res.json(names + " " + email + " this was the thing ");
   } catch (err){
     console.error(err.message);
   }

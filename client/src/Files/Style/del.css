@@ -1,0 +1,13 @@
+.del-btn{
+    background-image: url(./reldel.png);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+
+    height: 60px;
+    width: 60px;
+    border: none;
+}
+
+.del-btn span{
+    display: none;
+}

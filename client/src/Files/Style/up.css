@@ -1,0 +1,49 @@
+.up{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 250px;
+    color: white;
+    font-size: 25px;
+    
+}
+
+
+.up-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+
+.up-em{
+    margin-bottom: 15px;
+    margin-top: 15px;
+    color: white;
+    width: 250px;
+    height: 30px;
+    border-radius: 8px;
+    font-size: 15px;
+}
+::placeholder{
+    color: white;
+}
+
+.up-pass{
+    margin-top: 15px;
+    margin-bottom: 5px;
+    width: 250px;
+    height: 30px;
+    border-radius: 8px;
+    font-size: 15px;
+}
+.up-btn{
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: white;
+    background-color: blue;
+    width: 259px;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 20px;
+}

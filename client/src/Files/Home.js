@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { useHistory }from "react-router-dom";
+import "./Style/Home.css"
 //let history = useHistory();
 
 class Home extends Component{
@@ -12,10 +13,12 @@ class Home extends Component{
     }
     render(){
       return ( 
-        <div className="App">
-          <p>Password manager</p>
-          <button onClick={this.handleSignin}>Sign in</button>
-          <button onClick={this.handleSignup}>Sign up</button>
+        <div className="Home">
+          <p className="Home-txt">Simple, secure password management for everyone</p>
+          <div className="Home-b">
+            <button className="Home-in" onClick={this.handleSignin}>Sign in</button>
+            <button className="Home-up" onClick={this.handleSignup}>Sign up</button>
+          </div>
         </div>
       );
     }

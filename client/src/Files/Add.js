@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import axios from 'axios';
+import './Style/add.css';
 axios.defaults.withCredentials = true;
 
 class Add extends Component{
@@ -34,16 +35,16 @@ class Add extends Component{
     render() {
         const {email, password} = this.state
         return(
-            <div className="App">
+            <div className="add">
                 <p>Add information</p>
-                <form onSubmit={this.submitHandler}>
+                <form className="add-form" onSubmit={this.submitHandler}>
                     <label>Organization:</label>
-                    <input type="text" name = "org" onChange={this.changeHandler} placeholder="Enter organization..."></input>
+                    <input className="add-name" type="text" name = "org" onChange={this.changeHandler} placeholder="Enter organization..."></input>
                     <label>Email:</label>
-                    <input type="email" name = "email" value = {email} onChange={this.changeHandler} placeholder="Enter email..."></input>
+                    <input className="add-em" type="email" name = "email" value = {email} onChange={this.changeHandler} placeholder="Enter email..."></input>
                     <label>Password:</label>
-                    <input type="password" name= "password" value = {password} onChange={this.changeHandler} placeholder="Enter password.."></input>
-                    <button type="submit">submit</button>
+                    <input className="add-pass" type="password" name= "password" value = {password} onChange={this.changeHandler} placeholder="Enter password.."></input>
+                    <button className="add-btn" type="submit">submit</button>
                 </form>
             </div>
         );
